@@ -1,0 +1,28 @@
+name: Push Website to FTP Channel
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build website
+      run: npm run build
+
+    - name: FTP deploy
+      uses: SamKirkland/FTP-Deploy-Action@4.2.2
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        server-dir: "/public_html/channel"
+        local-dir: "./build"
