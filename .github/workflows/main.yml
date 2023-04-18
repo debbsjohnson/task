@@ -2,7 +2,7 @@ name: Push Website to FTP Channel
 
 on:
   push:
-    branches: [ master ]
+    branches: [ test ]
 
 jobs:
   build-and-deploy:
