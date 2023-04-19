@@ -2,7 +2,7 @@ name: Push Website to FTP Channel
 
 on:
   push:
-    branches: [ master ]
+    branches: [ test ]
 
 jobs:
   build-and-deploy:
@@ -19,7 +19,7 @@ jobs:
       run: npm run build
 
     - name: FTP deploy
-      uses: SamKirkland/FTP-Deploy-Action@4.2.2
+      uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
