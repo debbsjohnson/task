@@ -17,7 +17,7 @@ function Relax() {
             <div className='flex absolute ml-[155px] -mt-[88px]'>
             <img src={manwithlaptop} alt="" className='h-36' />
           </div>
-        </div>
+        </div> 
         <div className='flex flex-row mt-20 mb-8 xl:mb-0'>
                 <button className='w-36 h-12 bg-black mr-4 rounded-md flex flex-row items-center'>
                    <img src={logormv} alt="" className=' h-10 w-10' />
