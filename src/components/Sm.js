@@ -6,14 +6,14 @@ import vector10 from "../images/icons/vector10.png";
 
 function Sm() {
   return (
-    <div className='flex flex-col primary ml-28 mt-1'>
-        <h1 className='font-bold text-[14px]'>Social media</h1>
-        <div className='flex flex-row gap-5 mt-11'>
-            <a href="..."><img src={vector7} alt=""className='h-3' /></a>
-            <a href='...'><img src={vector8} alt=""className='h-3' /></a>
-            <a href="..."><img src={vector9} alt=""className='h-3' /></a>
-            <a href="..."><img src={vector10} alt=""className='h-3' /></a>
-        </div>
+    <div className='flex flex-col primary mt-1'>
+      <h1 className='font-bold text-[14px]'>Social media</h1>
+      <div className='flex flex-row gap-5 mt-11'>
+        <a href="..."><img src={vector7} alt="" className='h-3' /></a>
+        <a href='...'><img src={vector8} alt="" className='h-3' /></a>
+        <a href="..."><img src={vector9} alt="" className='h-3' /></a>
+        <a href="..."><img src={vector10} alt="" className='h-3' /></a>
+      </div>
     </div>
   )
 }
