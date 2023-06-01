@@ -1,42 +1,62 @@
 import './App.css';
-import React from 'react';
-import Reasons from './components/Reasons';
-import Relax from './components/Relax';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import Reviews from './components/Reviews';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Frequency from './components/Frequency';
-import Delivery from './components/Delivery';
+import React, { useState } from 'react';
+
 // import "../dist/output.css"
-import Aos from 'aos';
-import "aos/dist/aos.css";
+
 import "./index.css"
-// import Navbar from './components/Navbar';
+import Search from './components/search/search';
+import CurrentWeather from './components/search/weather/currentweather';
+
+import { WEATHER_API_KEY } from './api';
+import { WEATHER_API_URL } from './api';
+import Forecast from './components/search/weather/forecast';
 
 
-function App() {
 
-  Aos.init({ 
-    duration: 1800,
-    offset: 0,
-  })
 
-  return (
-    <div className="overflow-hidden">
-      <Header />
-      <Hero />
-      <Services />
-      <Reasons />
-      <Reviews />
-      <Frequency />
-      <Relax />
-      <Delivery />
-      <Footer />
+
+export default function App() {
+
+
+  const [currentWeather, setCurrentWeather] = useState(null);
+  const [forecastWeather, setForecast] = useState(null);
+
+  const handleOnSearchChange = (searchData) => {
+    const [ lat, lon ] = searchData.value.split(" ");
+
+    const currentWeatherFetch = fetch(`${WEATHER_API_URL}/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric`);
+    const forecastFetch = fetch(`${WEATHER_API_URL}/forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric`);
+
+
+
+
+    Promise.all([currentWeatherFetch, forecastFetch])
+      .then(async (response) => {
+        const weatherResponse = await response[0].json();
+        const forecastResponse = await response[1].json();
+
+        setCurrentWeather({ city: searchData.label, ...weatherResponse });
+        setForecast({ city: searchData.label, ...forecastResponse });
+      })
+      .catch((err) => console.log(err));
+
+    };
     
-</div>
-  );
-}
 
-export default App;
+  
+
+  console.log(forecastWeather);
+
+ 
+  return (
+    <div className="container max-w-screen-lg mt-4 py-5 px-32 h-fit">
+      <Search onSearchChange={handleOnSearchChange} />
+      {currentWeather && <CurrentWeather data={currentWeather} />}
+      {forecastWeather && <Forecast data={forecastWeather} />}
+      
+    </div>
+  );
+  }
+
+      // <ToastContainer autoClose={5000} theme="colored" newestOnTop={true} />
+
